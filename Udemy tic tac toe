@@ -59,4 +59,3 @@ def player_choice(board):
     if space_check(board,player_choice):
         return display_board()
 player_choice(board)
-
