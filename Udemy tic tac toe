@@ -5,7 +5,6 @@ def display_board():
     print(board[7]+'|'+board[8]+'|'+board[9])
     print(board[4]+'|'+board[5]+'|'+board[6])
     print(board[1]+'|'+board[2]+'|'+board[3])
-display_board()
 def player_input():
     marker=''
     while marker!='X' and marker!='O':
@@ -19,7 +18,6 @@ player2_marker
 def place_marker(board, marker, position):
     board[position]=marker
 place_marker(board,player1_marker,3)
-display_board()
 def win_check(board,mark):
     if board[7]==board[8]==board[9]==mark:
         return True
@@ -59,4 +57,3 @@ def player_choice(board):
     if space_check(board,player_choice):
         return display_board()
 player_choice(board)
-
