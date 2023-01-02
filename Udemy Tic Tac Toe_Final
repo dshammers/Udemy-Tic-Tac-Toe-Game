@@ -9,7 +9,8 @@ def player_input():
         marker=input('Player 1, choose X or O: ').upper()
         if marker=='X':
             return ('X','O')
-        return('O','X')
+        if marker=='O':
+            return('O','X')
 def place_marker(board, marker, position):
     board[position]=marker
 def win_check(board,mark):
@@ -32,7 +33,9 @@ def win_check(board,mark):
     return False
 import random
 def choose_first():
-    return random.randint(1,2)
+    if random.randint(1,2)==1:
+        return 'Player 1'
+    return 'Player 2'
 def space_check(board,position):
     if board[position]==' ':
         return True
@@ -65,7 +68,7 @@ while True:
     board=[' ']*10
     board[0]='#'
     player1_marker,player2_marker=player_input()
-    turn=str(choose_first())
+    turn=choose_first()
     game_on=True
     print(turn+' will go first')
     play_game=input('Want to play? y/n')
