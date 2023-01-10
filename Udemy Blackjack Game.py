@@ -120,12 +120,12 @@ while True:
                     dealer_turn=True
                     break
 
-            while dealer_turn:
-                if sum(dealer.hand.value)<17:
-                    dealer.hand.append(new_deck.deal_one())
-                if sum(dealer.hand.value)>21:
-                    print(dealer.hand)
-                    print('Dealer has busted! Player wins!')
-                    dealer_turn=False
-                    play_game=False
-                    break
+        while dealer_turn:
+            if sum(dealer.hand.value)<17:
+                dealer.hand.append(new_deck.deal_one())
+            if sum(dealer.hand.value)>21:
+                 print(dealer.hand)
+                 print('Dealer has busted! Player wins!')
+                 dealer_turn=False
+                 play_game=False
+                 break
