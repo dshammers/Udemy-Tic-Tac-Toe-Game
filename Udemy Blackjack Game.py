@@ -35,12 +35,14 @@ class Player():
         self.hand=[]
         
     def bet_in_play(self):
-        self.bet_in_play=[]
+        self.bet_in_play=[0]
     
     def bet(self,bet):
         bankroll-=bet
         self.bet_in_play.append(bet)
 
+    def winning(self,amount):
+        self.winning=self.bankroll=bankroll+amount
 
     def hit(self,new_card):
         self.hand.append(new_card)
@@ -72,33 +74,28 @@ while True:
         play_game=False
         break
 
-   
-
-    bet_in_play=[]
 
     while play_game:
-        if player.bankroll==0:
+        if player_1.bankroll==0:
             print("You're out of money!")
             play_game=False
             break
 
-        while True:
+        while player_1.bet_in_play==0:
             bet_amount=int(input("How much would you like to bet?"))
-            if isinstance(bet_amount,int)=True and bet_amount < player.bankroll:
-                    bet_in_play+=bet_amount
-                    player.bet(bet_amount)
+            if isinstance(bet_amount,int)==True and bet_amount <= player_1.bankroll:
+                    player_1.bet(bet_amount)
                     break
-            elif isinstance(bet_amount,int)=True and bet_amount > player.bankroll:
+            elif isinstance(bet_amount,int)==True and bet_amount > player_1.bankroll:
                     print("You don't have that much!")
 
 
-        player.hand.append(new_deck.deal_one())
-        dealer.hand.append(new_deck.deal_one())
-        player.hand.append(new_deck.deal_one())
-        dealer.hand.append(new_deck.deal_one())
+        if len(dealer.dealers_hand)<2:
+            player_1.hit(new_deck.deal_one)
+            dealer.hit(new_deck.deal_one)
 
-        print(player.hand)
-        print(dealer.hand[0],'X')
+        print(f'{player_name} has {player_1.hand}')
+        print(f'dealer is showing {dealer.dealers_hand[0]}')
 
         player_turn=True
         dealer_turn=False
@@ -106,26 +103,42 @@ while True:
         while player_turn:
                 choice=input('Would you like to hit or stay?').lower()
                 if choice=='hit':
-                    player.hand.append(new_deck.deal_one())
-                    if sum(player.hand.value)>21:
-                        print(player.hand)
+                    player_1.hit(new_deck.deal_one())
+                    if sum(player_1.hand.value)>21:
+                        print(player_1.hand)
                         print('Player has busted! Dealer wins')
                         player_turn=False
                         play_game=False
                         break
-                    print(player.hand)
+                    print(player_1.hand)
                 if choice=='stay':
-                    print(player.hand)
+                    print(player_1.hand)
                     player_turn=False
                     dealer_turn=True
                     break
 
         while dealer_turn:
-            if sum(dealer.hand.value)<17:
-                dealer.hand.append(new_deck.deal_one())
-            if sum(dealer.hand.value)>21:
-                 print(dealer.hand)
+            if sum(dealer.dealers_hand.value)<17:
+                dealer.hit(new_deck.deal_one())
+            if sum(dealer.dealers_hand.value)>21:
+                 print(dealer.dealers_hand)
                  print('Dealer has busted! Player wins!')
                  dealer_turn=False
                  play_game=False
                  break
+            else:
+                if sum(player_1.hand.value) > sum(dealer.dealers_hand.value):
+                    print ('Player 1 beat the dealer!')
+                    player_1.winning(player_1.bet_in_play*2)
+                    dealer_turn=False
+                    break
+                if sum(player_1.hand.value) < sum(dealer.dealers_hand.value):
+                    print ('Player 1 loses!')
+                    player_1.bet_in_play=0
+                    dealer_turn=False
+                    break
+                if sum(player_1.hand.value)==sum(dealer.dealers_hand.value):
+                    print ('Push!')
+                    player_1.winning(player_1.bet_in_play)
+                    dealer_turn=False
+                    break
